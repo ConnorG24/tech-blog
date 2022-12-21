@@ -8,7 +8,7 @@ class User extends Model{
     }
 }
 
-User.inti(
+User.init(
     {
         id:{
             type: DataTypes.INTEGER,
@@ -16,7 +16,7 @@ User.inti(
             primaryKey: true,
             autoIncrement: true,
           },
-        user_name:{
+        name:{
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
