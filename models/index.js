@@ -31,3 +31,5 @@ Comment.hasMany(Post,{
     foreignKey: 'post_id',
     onDelete:'cascade'
 });
+
+module.exports = {User, Comments, Post}
