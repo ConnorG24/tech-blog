@@ -39,3 +39,28 @@ router.post('/', async (req,res) =>{
         res.status(500).json(err);
     }
 })
+
+// login route
+
+router.post('/login', async (req,res) =>{
+    try{
+        User.findOne({
+            where:{
+                name: req.body.name
+            }
+        }).then((userData) =>{
+            if(!userData){
+                res.status(400).json({message:'User with that name does not exist'})
+                return;
+            }
+            const passwordMatch = userData.checkPassword(req.body.password);
+            if(!passwordMatch){
+                res.status(400).json({message: 'wrong password kupo!'})
+                return;
+            }
+            res.json({user: userData, message:'logged in succsesfully'})
+        })
+    }catch(err){
+        res.status(500).json(err);
+    }
+})
