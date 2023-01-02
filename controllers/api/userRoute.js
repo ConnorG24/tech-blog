@@ -64,3 +64,21 @@ router.post('/login', async (req,res) =>{
         res.status(500).json(err);
     }
 })
+
+router.get('/:id', async (req,res) =>{
+    try{
+        User.destroy({
+            where:{
+                id: req.params.id
+            }
+        }).then((userData) =>{
+            if(!userData){
+                res.status(400).json({message:'User with that name does not exist'})
+                return;
+            }
+            res.json(userData)
+        })
+    }catch(err){
+        res.status(500).json(err);
+    }
+})
