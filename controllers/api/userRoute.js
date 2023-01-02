@@ -24,3 +24,18 @@ router.get('/:id', async (req,res) =>{
         res.status(500).json(err);
     }
 })
+
+// create a user
+
+router.post('/', async (req,res) =>{
+    try{
+        User.create({
+            name: req.body.name,
+            password: req.body.password
+        }).then((userData) =>{
+            res.json(userData)
+        })
+    }catch(err){
+        res.status(500).json(err);
+    }
+})
