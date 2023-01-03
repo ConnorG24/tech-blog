@@ -27,3 +27,20 @@ router.get('/:id', async (req,res) =>{
 })
 
 
+// create a comment
+
+router.post('/',withAuth,async (req,res) =>{
+    try{
+        if(req.session){
+        Comments.create({
+            comment_text: req.body.comment_text,
+            user_id: req.body.user_id,
+            post_id: req.body.post_id
+        }).then((commentsData) =>{
+            res.json(commentsData)
+        })
+    }
+    }catch(err){
+        res.status(500).json(err);
+    }
+})
