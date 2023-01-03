@@ -44,3 +44,23 @@ router.post('/',withAuth,async (req,res) =>{
         res.status(500).json(err);
     }
 })
+// update/ change comment
+
+router.put('/:id', async (req,res) =>{
+    try{
+        Comments.update({
+            comment_text: req.body.comment_text
+        },{
+            where: req.params.id
+        }).then((commentsData) =>{
+            if(!commentsData){
+                res.status(404).json({message: 'comment not found kupo'})
+            }
+            res.json(commentsData)
+        })
+    }catch(err){
+        res.status(500).json(err);
+    }
+})
+
+//delete comment
