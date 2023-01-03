@@ -51,7 +51,9 @@ router.put('/:id', async (req,res) =>{
         Comments.update({
             comment_text: req.body.comment_text
         },{
-            where: req.params.id
+            where:{
+                id: req.params.id
+            }
         }).then((commentsData) =>{
             if(!commentsData){
                 res.status(404).json({message: 'comment not found kupo'})
@@ -63,4 +65,21 @@ router.put('/:id', async (req,res) =>{
     }
 })
 
-//delete comment
+//delete comments
+
+router.delete('/:id', async (req,res) =>{
+    try{
+        Comments.destroy({
+            where:{
+                id: req.params.id 
+            }
+        }).then((commentsData) =>{
+            if(!commentsData){
+                res.status(404).json({message: 'comment not found kupo'})
+            }
+            res.json(commentsData)
+        })
+    }catch(err){
+        res.status(500).json(err);
+    }
+})
